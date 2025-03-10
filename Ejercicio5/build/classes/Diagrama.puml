@@ -1,0 +1,61 @@
+@startuml
+ 
+class Producto {
+  - nombre
+  - descripcion
+  + toString()
+}
+
+class Lote {
+  - codigo
+  - producto
+  - certificado
+  + obtenerCertificado() 
+}
+
+class Muestra {
+  - codigo
+  - lote
+  + toString()
+}
+
+class TipoEnsayo {
+  - codigo
+  - nombre
+  - descripcion
+  - condicionesMinimas
+  + validarResultados()
+}
+
+class Ensayo {
+  - codigo
+  - muestra
+  - tipo
+  - medidas
+  + agregarMedida()
+  + cumpleEstandares()
+}
+class Medida {
+  - nombre
+  - valor
+  - unidad
+  - ensayo
+  + toString()
+}
+
+class Certificado {
+  - codigo
+  - lote
+  - firmado
+  - director
+  + firmar(director)
+}
+
+Producto "1" -- "many" Lote : contiene >
+Lote "1" -- "many" Muestra : extrae >
+Muestra "1" -- "many" Ensayo : analiza >
+TipoEnsayo "1" -- "many" Ensayo : clasifica >
+Ensayo "1" -- "many" Medida : registra >
+Lote "1" -- "0..1" Certificado : certifica >
+
+@enduml
